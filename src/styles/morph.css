@@ -1,0 +1,107 @@
+/* ─── Morphing buttons ─────────────────────────────────────
+   Each control turns into the next step of its action.
+   1 Submit → spinner → check      (SubmitMorph)
+   2 Add → − n + stepper           (AddStepper)
+   3 Issue / Reject → status badge (DecideMorph)
+   4 Staff → inline password       (StaffMorph)
+   5 Export → progress → file ✓    (ExportMorph)
+   6 Order pill → card             (OrderPill, see views.css)
+   ───────────────────────────────────────────────────────── */
+
+.morph { position: relative; overflow: hidden; }
+/* layers sit on top of each other, each centred on its own */
+.morph .layer {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: opacity .2s;
+}
+
+/* 1 · Submit */
+.submit {
+  width: 250px; height: var(--h-lg); padding: 0;
+  color: var(--acc-t); font-size: 14px; font-weight: 800;
+  transition: width .45s var(--ease), background .3s, color .3s, box-shadow .3s;
+}
+.submit .l-spin, .submit .l-done { opacity: 0; }
+.spinner {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 2.5px solid var(--in); border-top-color: var(--acc);
+  animation: rot .8s linear infinite;
+}
+.submit.loading, .submit.ok { width: var(--h-lg); }
+.submit.loading .l-idle, .submit.ok .l-idle { opacity: 0; }
+.submit.loading .l-spin { opacity: 1; }
+.submit.ok { background: var(--ok); color: #fff; box-shadow: 0 6px 16px rgba(24, 168, 116, .45); }
+.submit.ok .l-done { opacity: 1; }
+.submit.ok .l-done .fa-solid { font-size: 18px; animation: pop .35s var(--ease); }
+.submit.dim { opacity: .5; }
+.shake { animation: shake .35s; }
+@keyframes rot { to { transform: rotate(360deg); } }
+@keyframes pop { from { transform: scale(.3); } to { transform: scale(1); } }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+/* 2 · Add → stepper */
+.adder {
+  width: 108px; height: var(--h-md); padding: 0;
+  color: var(--acc-t); font-weight: 800;
+  transition: width .4s var(--ease);
+}
+.adder .l-step { justify-content: space-between; padding: 0 4px; opacity: 0; pointer-events: none; transition: opacity .2s .1s; }
+.adder.open { width: 138px; cursor: default; }
+.adder.open .l-idle { opacity: 0; pointer-events: none; }
+.adder.open .l-step { opacity: 1; pointer-events: auto; }
+.adder.is-err { box-shadow: var(--sh-s), inset 0 0 0 1.5px var(--bad-t); }
+.adder .qinput {
+  width: 46px; height: 30px; padding: 0;
+  border: 0; border-radius: 10px; background: transparent;
+  text-align: center; font: 600 15px/1 var(--f-code); color: var(--ink);
+  outline: none;
+}
+.adder .qinput:focus { background: var(--well); box-shadow: var(--sh-in); }
+
+/* 3 · Issue / Reject → badge */
+.decide { display: inline-flex; align-items: center; gap: 12px; }
+.decide .btn {
+  max-width: 260px;
+  transition: max-width .45s var(--ease), padding .45s var(--ease), opacity .3s, margin .45s var(--ease), box-shadow .3s;
+}
+.decide .issue { color: var(--ok-t); }
+.decide .reject { color: var(--bad-t); }
+.decide.done .btn:not(.chosen) { max-width: 0; padding: 0; opacity: 0; margin: 0 -6px; pointer-events: none; }
+.decide.done .chosen { box-shadow: var(--sh-in); background: var(--well); cursor: default; }
+.decide.done .chosen .fa-solid { animation: pop .35s var(--ease); }
+
+/* 4 · Staff → password */
+.lockbox {
+  width: 156px; height: var(--h-md); padding: 0;
+  color: var(--muted); font-weight: 700;
+  transition: width .5s var(--ease), color .3s;
+}
+.lockbox .l-pw { inset: 4px; gap: 6px; opacity: 0; pointer-events: none; transition: opacity .2s .15s; }
+.lockbox .l-pw input {
+  flex: 1; min-width: 0; height: 100%;
+  border: 0; border-radius: 99px; outline: none;
+  background: var(--well); box-shadow: var(--sh-in);
+  padding: 0 14px; font: 600 13px/1 var(--f-code); color: var(--ink);
+}
+.lockbox .l-pw input::placeholder { font-family: var(--f-ui); font-weight: 600; color: var(--faint); }
+.lockbox .l-pw .qbtn { width: 34px; height: 34px; color: var(--acc-t); }
+.lockbox.open { width: 290px; cursor: default; }
+.lockbox.open .l-idle { opacity: 0; pointer-events: none; }
+.lockbox.open .l-pw { opacity: 1; pointer-events: auto; }
+.lockbox.in { color: var(--ok-t); }
+
+/* 5 · Export → progress → file */
+.export {
+  min-width: 176px; padding: 0 18px;
+  color: var(--ink);
+}
+.export .fill {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+  background: rgba(24, 168, 116, .2); border-radius: inherit;
+}
+.export.run .fill { width: 100%; transition: width .9s cubic-bezier(.4, 0, .2, 1); }
+.export .xlbl { position: relative; display: inline-flex; align-items: center; gap: 8px; }
+.export.fin { color: var(--ok-t); }
+.export.fin .fa-check { animation: pop .35s var(--ease); }
+.export.sm { min-width: 0; }

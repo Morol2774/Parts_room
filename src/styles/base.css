@@ -1,0 +1,31 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--bg); }
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.5 var(--f-ui);
+  /* digits of equal width everywhere → numbers line up in columns */
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+input, select, button, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+.mono { font-family: var(--f-code); font-variant-numeric: tabular-nums; }
+b, strong { font-weight: 700; }
+
+/* Font Awesome glyphs: same box for every icon so they centre like text */
+.fa-solid, .fa-regular { width: 1.15em; text-align: center; line-height: 1; flex-shrink: 0; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--lo); border-radius: 8px; border: 2px solid var(--bg); }
+
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+
+.page { max-width: 980px; margin: 0 auto; padding: 26px 16px 56px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

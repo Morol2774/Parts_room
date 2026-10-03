@@ -1,0 +1,54 @@
+/* ─────────────────────────────────────────────────────────────
+   PartsRoom · "Smart Home" soft UI tokens (variant B).
+   Every colour in the app comes from here.
+   Text colours are checked for ≥4.5:1 contrast on the page colour.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+
+  /* Surfaces — soft UI needs elements in the same hue as the page */
+  --bg: #E8EDF5;
+  --hi: #F6F8FC;            /* raised gradient, light end  */
+  --lo: #DDE3EE;            /* raised gradient, dark end   */
+  --in: #D8DFEA;            /* inset well fill             */
+  --in-hi: #EEF2F8;         /* inset well, light end       */
+  --line: rgba(122, 134, 160, .22);
+
+  /* Shadows */
+  --shade: rgba(166, 179, 204, .60);
+  --shade-s: rgba(166, 179, 204, .50);
+  --raised: linear-gradient(135deg, var(--hi), var(--lo));
+  --well: linear-gradient(135deg, var(--in), var(--in-hi));
+  --sh: -8px -8px 18px #fff, 8px 8px 20px var(--shade);
+  --sh-s: -4px -4px 9px #fff, 4px 4px 10px var(--shade-s);
+  --sh-in: inset 3px 3px 6px var(--shade-s), inset -3px -3px 6px #fff;
+
+  /* Text */
+  --ink: #1F2A44;           /* 12.1:1 */
+  --muted: #536079;         /*  5.1:1 */
+  --faint: #7A86A0;         /*  3.1:1 — icons / large text only */
+
+  /* Accent + semantic (text-safe "-t" shades, fills without) */
+  --acc: #4C6FFF;
+  --acc-t: #3150D6;         /*  5.1:1 */
+  --ok: #18A874;
+  --ok-t: #0A7550;          /*  4.9:1 */
+  --warn: #F5A524;
+  --warn-t: #9A5800;        /*  4.7:1 */
+  --bad: #E0479E;
+  --bad-t: #B4233E;         /*  5.2:1 */
+  --violet-t: #6D28D9;      /*  6.0:1 */
+
+  /* Type */
+  --f-ui: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --f-code: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  /* Motion */
+  --ease: cubic-bezier(.6, -0.05, .25, 1.25);
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+
+  /* Sizes — one control height scale, so rows line up */
+  --h-sm: 32px;
+  --h-md: 42px;
+  --h-lg: 48px;
+}
